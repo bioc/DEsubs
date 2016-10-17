@@ -1,5 +1,5 @@
 Package: DEsubs
-Version: 0.99.6
+Version: 1.0.0
 Date: 2015-07-19
 Title: DEsubs: an R package for flexible identification of
         differentially expressed subpathways using RNA-seq expression

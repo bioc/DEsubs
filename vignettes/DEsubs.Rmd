@@ -58,7 +58,7 @@ if (.Platform[['OS.type']] == 'windows')
 }
 ```
 
-Now the packake, as well as the toy-data can be loaded as follows:
+Now the package, as well as the toy-data can be loaded as follows:
 
 ```{r eval=FALSE, echo=TRUE}
 library('DEsubs')
@@ -88,7 +88,7 @@ load(system.file('extdata', 'data.RData', package='DEsubs'))
 \newpage
 
 ## 2. User Input
-DEsubs accepts RNA-seq expression control-case profile data. The following 
+DEsubs accepts RNA-seq expression paired case-control profile data. The following 
 example in Table 1 shows the right structure for RNA-seq expression data input.
 
 
@@ -103,7 +103,7 @@ data <- c(    1879, 2734, 2369, 2636, 2188, 9743, 9932, 10099,
 data <- matrix(data, nrow=6, ncol=8, byrow=TRUE)
 
 rownames(data) <- c(paste0('Gene ', 1:3), '...',  'Gene N-1', 'Gene N')
-colnames(data) <- paste0('Sample ', 1:8)
+colnames(data) <- c(paste0('Case ', 1:4), paste0('Control ', 1:4))
 
 kable( data,
     caption = 'Example of user input format' )

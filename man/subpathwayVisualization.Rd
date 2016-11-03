@@ -38,7 +38,9 @@ not specified, default filenames are used ('DEsubs/Output').}
 \item{verbose}{ TRUE to display informative messages, FALSE to hide. }
 }
 \value{
-No value is returned.
+A list of matrices, each containing the  P-Value of enrichment between the 
+terms for a specific reference (rows) and each of the subpathway genes 
+(columns). If there is no enrichment, the value is NA. 
 }
 \description{
 Circular diagrams containing subpathways enrichment in potential key 

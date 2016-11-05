@@ -31,7 +31,8 @@ not specified, default filenames are used ('DEsubs/Output').}
 \item{verbose}{ TRUE to display informative messages, FALSE to hide. }
 }
 \value{
-No value is returned.
+A list of matrices, containing Subpathway/Term/P-Value results for each
+reference.
 }
 \description{
 Organism level measures

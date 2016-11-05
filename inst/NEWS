@@ -1,3 +1,6 @@
-1.1.1: - Update in User Guide/User Input
+1.1.2:  - All visualization functions now return visualized data.
+        - Added support for organism Danio rerio (zebrafish).
 
-1.1.0: - Initial version
+1.1.1:  - Update in User Guide/User Input
+
+1.1.0:  - Initial version

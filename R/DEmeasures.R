@@ -339,7 +339,7 @@ subpathwayVisualization <- function( DEsubs.out,
                                 references='', 
                                 submethod, 
                                 subname,
-                                colors=c('#FF0000FF', '#FF9900FF', '#CCFF00FF',
+                                colors=c('#FF0000FF', '#FF9900FF','#CCFF00FF',
                                         '#33FF00FF', '#00FF66FF', '#0066FFFF',
                                         '#3300FFFF', '#CC00FFFF', '#FF0099FF',
                                         '#EE82EEFF'), 
@@ -371,9 +371,10 @@ subpathwayVisualization <- function( DEsubs.out,
     }
     if ( '' %in% outfiles ) { outfiles <- rep('', length(references) ) }
 
+    out <- vector(mode='list', length=length(references))
     for ( i in seq_len(length(references)) )
     {
-        .subpathwayVisualization(DEsubs.out=DEsubs.out,
+        out[[i]] <- .subpathwayVisualization(DEsubs.out=DEsubs.out,
                                 reference=references[i],
                                 submethod=submethod,
                                 subname=subname,
@@ -385,6 +386,9 @@ subpathwayVisualization <- function( DEsubs.out,
                                 verbose=verbose
                                 )
     }
+    names(out) <- references
+
+    return( out )
 }
 
 .subpathwayVisualization <- function( DEsubs.out, reference, submethod, 
@@ -503,9 +507,15 @@ subpathwayVisualization <- function( DEsubs.out,
     adjmat   <- matrix(0, nrow=length(rowTerms), ncol=length(colTerms))
     rownames(adjmat) <- rowTerms
     colnames(adjmat) <- colTerms
+    adjmat.pval <- matrix(NA, nrow=length(rowTerms), ncol=length(colTerms))
+    rownames(adjmat.pval) <- rowTerms
+    colnames(adjmat.pval) <- colTerms    
     for ( i in seq_len(nrow(edgeList)) )
     {
+        # For visualization purposes
         adjmat[ edgeList[i,1], edgeList[i,2] ] <- 1
+        # For output
+        adjmat.pval[edgeList[i,1], edgeList[i,2]] <- as.numeric(edgeList[i,3])
     }
 
     if ( shuffleColors  )
@@ -538,6 +548,8 @@ subpathwayVisualization <- function( DEsubs.out,
                 export=export)
 
     if (verbose) { message('done.') }
+
+    return( adjmat.pval )
 }
 
 
@@ -571,9 +583,10 @@ organismVisualization <- function( DEsubs.out,
     }
     if ( '' %in% outfiles ) { outfiles <- rep('', length(references) ) }
 
+    out <- vector(mode='list', length=length(references))
     for ( i in seq_len(length(references)) )
     {
-        res <- .organismVisualization(DEsubs.out=DEsubs.out,
+        out[[i]] <- .organismVisualization(DEsubs.out=DEsubs.out,
                                     references=references[i],
                                     topSubs=topSubs,
                                     topTerms=topTerms,
@@ -584,9 +597,9 @@ organismVisualization <- function( DEsubs.out,
                                     outfile=outfiles[i],
                                     verbose=verbose)
     }
+    names(out) <- references
 
-
-    return(invisible())
+    return( out )
 }
 
 .organismVisualization <- function( DEsubs.out, references, topSubs, topTerms,
@@ -712,7 +725,7 @@ organismVisualization <- function( DEsubs.out,
         { message('done', appendLF = TRUE) }
     
 
-    return(termsPerSub.edgeList)
+    return( termsPerSub.df )
 }
 
 

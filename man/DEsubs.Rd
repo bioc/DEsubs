@@ -8,7 +8,8 @@ DEsubs(org, mRNAexpr, mRNAnomenclature, pathways, DEtool, DEpar,
     CORtool, CORpar, subpathwayType, rankedList, verbose)
 }
 \arguments{
-\item{org}{Organism identifier ('hsa', 'mmu', 'rno', 'sce', 'ath', 'dme')}
+\item{org}{Organism identifier ('hsa', 'mmu', 'rno', 'sce', 'ath', 'dme', 
+'dre')}
 \item{mRNAexpr}{RNA-seq expression data in the form of either a matrix
 or a filename of a text file stored in the 'User' directory.}
 \item{mRNAnomenclature}{mRNAnomenclature ('entrezgene', 'ensembl_gene_id',

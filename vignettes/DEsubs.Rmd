@@ -122,8 +122,9 @@ data <- c(  'Homo sapiens', "'hsa'",
             'Drosophila melanogaster', "'dme'", 
             'Saccharomyces cerevisiae', "'sce'",
             'Arabidopsis thaliana', "'ath'",
-            'Rattus norvegicus', "'rno'")
-data <- matrix(data, nrow=6, ncol=2, byrow=TRUE)
+            'Rattus norvegicus', "'rno'",
+            'Danio rerio', "'dre'")
+data <- matrix(data, nrow=7, ncol=2, byrow=TRUE)
 
 rownames(data) <- rep('', nrow(data))
 colnames(data) <- c('Supported Organisms', 'R command')

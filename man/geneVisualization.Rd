@@ -75,7 +75,7 @@ load(system.file('extdata', 'data.RData', package='DEsubs'))
 res <- geneVisualization(  
             DEsubs.out=DEsubs.out, top=10,
             measures.topological=c( 'degree', 'betweenness', 'closeness',
-                                    'hub_score', 'eccentricity', 'page_rank'),
+                                    'eccentricity', 'page_rank'),
             measures.functional=c(  'KEGG', 
                                     'Disease_OMIM', 'Disease_GAD', 
                                     'Drug_DrugBank','miRNA', 'TF'),

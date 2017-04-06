@@ -695,7 +695,7 @@ The total picture of the enriched subpathways is performed with dot plots.
 res <- geneVisualization(  
             DEsubs.out=DEsubs.out, top=10, 
             measures.topological=c( 'degree', 'betweenness', 'closeness',
-                                    'hub_score', 'eccentricity', 'page_rank'),
+                                    'eccentricity', 'page_rank'),
             measures.functional=c(  'KEGG', 'GO_bp','GO_cc', 'GO_mf', 
                                     'Disease_OMIM', 'Disease_GAD', 
                                     'Drug_DrugBank','miRNA', 'TF'),
@@ -751,7 +751,7 @@ res <- geneVisualization(
             DEsubs.out=DEsubs.out, 
             top=12,
             measures.topological=c( 'degree', 'betweenness', 'closeness',
-                                    'hub_score', 'eccentricity', 'page_rank'),
+                                    'eccentricity', 'page_rank'),
             measures.functional=NULL,
             measures.barplot=FALSE,
             size.topological=c(5,4), 

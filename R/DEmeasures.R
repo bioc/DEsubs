@@ -91,9 +91,11 @@ geneVisualization <- function ( DEsubs.out,
     # Analysis #3
     if (  measures.barplot )
     {
-
-        names(topGenes) <- .changeAnnotation(annData=names(topGenes), 
-                                    org='hsa', choice='entrezToHGNC')
+        if ( org == 'hsa' )
+        {
+            names(topGenes) <- .changeAnnotation(annData=names(topGenes), 
+                                        org='hsa', choice='entrezToHGNC')
+        }
 
         .matrixVisualization( -log10(topGenes), type='barplot', title='',
                             colors=colors.barplot, 
@@ -158,9 +160,12 @@ geneVisualization <- function ( DEsubs.out,
 
     if ( visualize )
     {
-        rownames(ranking) <- .changeAnnotation( annData=rownames(ranking), 
-                                                org='hsa',
-                                                choice='entrezToHGNC')
+        if (org == 'hsa')
+        {
+            rownames(ranking) <- .changeAnnotation( annData=rownames(ranking), 
+                                                    org='hsa',
+                                                    choice='entrezToHGNC')
+        }
 
         .matrixVisualization( dataVis=as.matrix(ranking), 
                                 type='heatmap', title='topological',

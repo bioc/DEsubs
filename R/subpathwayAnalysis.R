@@ -315,7 +315,8 @@ subpathwayTypes <- function(grouping='all')
             p <- gsub('-cliques', '', method)
             k <- as.numeric(gsub('component.', '', p))
 
-            g <- as_graphnel( gi )
+            # g <- as_graphnel( gi )
+            g <- igraph.to.graphNEL( gi )
             ksubs <- kCliques(ugraph(g))[paste0(k, '-cliques')][[1]]
             ksubs <- lapply(ksubs, function(x) { matrix(x, nrow=1) } )
 

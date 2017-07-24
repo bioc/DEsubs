@@ -34,7 +34,7 @@ importFrom( 'graph',
 importFrom( 'RBGL',
                 'kCliques')
 importFrom( 'igraph',
-                'as_graphnel',
+                'igraph.to.graphNEL',
                 'graph_from_edgelist',
                 'as_data_frame',
                 'closeness',

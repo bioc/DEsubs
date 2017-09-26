@@ -92,66 +92,53 @@ DEsubs accepts RNA-seq expression paired case-control profile data. The followin
 example in Table 1 shows the right structure for RNA-seq expression data input.
 
 
-```{r, eval=TRUE, echo=FALSE, results = 'asis'}
-
-data <- c(    1879, 2734, 2369, 2636, 2188, 9743, 9932, 10099,
-            97, 124, 146, 114, 126, 33, 19, 31,
-            485, 485, 469, 428, 475, 128, 135, 103,
-            '...', '...', '...', '...', '...', '...', '...', '...',
-            84, 25, 67, 62, 61, 277, 246, 297,
-            120, 312, 78, 514, 210, 324, 95, 102)
-data <- matrix(data, nrow=6, ncol=8, byrow=TRUE)
-
-rownames(data) <- c(paste0('Gene ', 1:3), '...',  'Gene N-1', 'Gene N')
-colnames(data) <- c(paste0('Case ', 1:4), paste0('Control ', 1:4))
-
-kable( data,
-    caption = 'Example of user input format' )
-```
+Gene               Case 1    Case 2    Case 3    Case 4    Control 1 Control 2 Control 3 Control 4
+------------------ --------- --------- --------- --------- --------- --------- --------- ---------
+Gene 1             1879      2734      2369      2636      2188      9743      9932      10099
+Gene 2             97        124       146       114       126       33        19        31
+Gene 3             485       485       469       428       475       128       135       103
+...                ...       ...       ...       ...       ...       ...       ...       ...
+Gene N-1           84        25        67        62        61        277       246       297
+Gene N             120       312       78        514       210       324       95        102
+------------------ --------- --------- --------- --------- --------- --------- --------- ---------
+Table: Example of user input format
 
 
 ## 3. Pathway network construction
 KEGG signaling pathway maps have been downloaded and converted to pathway 
-networks using CHRONOS package. Pathway networks for the six supported 
+networks using CHRONOS package. Pathway networks for the seven supported 
 organisms are included in the package itself (see Table 2). 
 
-```{r, eval=TRUE, echo=FALSE, results = 'asis'}
 
-data <- c(  'Homo sapiens', "'hsa'", 
-            'Mus musculus', "'mmu'", 
-            'Drosophila melanogaster', "'dme'", 
-            'Saccharomyces cerevisiae', "'sce'",
-            'Arabidopsis thaliana', "'ath'",
-            'Rattus norvegicus', "'rno'",
-            'Danio rerio', "'dre'")
-data <- matrix(data, nrow=7, ncol=2, byrow=TRUE)
+Supported Organisms                      R command
+--------------                           ----------------
+Homo sapiens                             'hsa'
+Mus musculus                             'mmu'
+Drosophila melanogaster                  'dme'
+Saccharomyces cerevisiae                 'sce'
+Arabidopsis thaliana                     'ath'
+Rattus norvegicus                        'rno'
+Danio rerio                              'dre'
+--------------                           ----------------
+Table: Supported KEGG organisms
 
-rownames(data) <- rep('', nrow(data))
-colnames(data) <- c('Supported Organisms', 'R command')
 
-kable( data,
-    caption = 'DEsubs supported KEGG organisms' )
-```
 
 DEsubs operates with Entrez ID labels, however twelve other label systems 
 are supported after converting to Entrez IDs via a lexicon included in 
 the package itself (see Table 3). 
 
-```{r, eval=TRUE, echo=FALSE, results = 'asis'}
 
-data <- c(  'Entrez', "'entrezgene'", 
-            'Ensemble', "'ensembl_gene_id', 'ensembl_transcript_id'", 
-            '', "'ensembl_peptide_id'",
-            'HGNC', "'hgnc_id', 'hgnc_symbol', 'hgnc_transcript_name'",
-            'Refseq', "'refseq_mrna', 'refseq_peptide'")
-data <- matrix(data, nrow=5, ncol=2, byrow=TRUE)
+Supported Labels              R command
+------------                  ----------------
+Entrez                        'entrezgene'
+Ensemble                      'ensembl_gene_id', 'ensembl_transcript_id'
+                              'ensembl_peptide_id'
+HGNC                          'hgnc_id', 'hgnc_symbol', 'hgnc_transcript_name'
+Refseq                        'refseq_mrna', 'refseq_peptide'
+------------                  ----------------
+Table: Supported gene labels
 
-rownames(data) <- rep('', nrow(data))
-colnames(data) <- c('Supported Labels', 'R command')
-
-kable( data,
-    caption = 'Supported gene labels' )
-```
 
 
 \newpage
@@ -200,19 +187,14 @@ DEsubs.run <- DEsubs(   org='hsa',
 
 
 
-```{r, eval=TRUE, echo=FALSE, results = 'asis'}
+Type                                                R command
+--------------                                      ----------------
+Pearson product-moment correlation coefficient      'pearson'
+Spearman rank correlation coefficient               'spearman'
+Kendall rank correlation coefficient                'kedhall'
+--------------                                      ----------------
+Table: Edge Rule options
 
-data <- c(  'Pearson product-moment correlation coefficient', "'pearson'", 
-            'Spearman rank correlation coefficient', "'spearman'", 
-            'Kendall rank correlation coefficient', "'kedhall'")
-data <- matrix(data, nrow=3, ncol=2, byrow=TRUE)
-
-rownames(data) <- rep('', nrow(data))
-colnames(data) <- c('Type', 'R command')
-
-kable( data,
-    caption = 'Edge Rule options' )
-```
 
 Supported Labels                                    R command
 --------------                                      ----------------
@@ -235,14 +217,21 @@ Table: Node Rule options
 Subpathway extraction is based on five main categories, (i) components, 
 (ii) communities, (iii) streams, (iv) neighborhoods, (v) cascades. Each one 
 sketches different topological aspect within the network. Indicative examples 
-and a short description of DEsubs five main subpathway categories cam be found 
+and a short description of DEsubs five main subpathway categories can be found 
 in Figure 1.
 
-![Stream, neighborhood and cascade types build each subpathway (blue nodes)
-by starting from a gene of interest (red nodes). Components and communities 
-are densely linked group of genes with the difference that the genes sharing 
-common properties are maintained within the graph (green nodes).
-](figures/fig1.png "DEsubs main subpathway categories"){height=320px}
+
+```{r eval=TRUE, echo=FALSE, out.height='235px', fig.align='center', fig.cap=cap, fig.pos='h', out.extra=''}
+
+cap <- paste0(
+    'Stream, neighborhood and cascade types build each subpathway ',
+    '(blue nodes) by starting from a gene of interest (red nodes). ',
+    'Components and communities are densely linked group of genes with the ',
+    'difference that the genes sharing common properties are maintained ',
+    'within the graph (green nodes).')
+
+knitr::include_graphics('figures/fig1.png')
+```
 
 
 The component category extracts strongly connected group of genes 
@@ -296,45 +285,39 @@ significant DEGs of his own experiment. A short description for all GOI types
 along with the corresponding parameters are shown in Table 6. 
 
 
-```{r, eval=TRUE, echo=FALSE, results = 'asis'}
+Type                  Description                                           R command
+--------------------- ----------------------------------------------------  ----------------
+**Topological**
+Degree                Number of adjacent interactions of the gene           'degree'
+Betweenness           Number of shortest paths from all vertices to all     'betweenness'
+                      others that pass through that node
+Closeness             Inverse of farness, which is the sum of distances     'closeness'
+                      to all other nodes
+Hub score             Kleinbergs hub centrality score                       'hub_score'
+Eccentricity          Shortest path distance from the farthest              'eccentricity'
+                      node in the graph
+Page rank             Google Page Rank                                      'page_rank'
+Start Nodes           Nodes without any incoming links                      'start_nodes'
+**Functional**
+DEG                   Genes highly differentially expressed                 'deg'
+                      according to the experimental data
+Pathways              Genes acting as bridges among KEGG pathways           'KEGG'
+Biological Process    Genes acting as bridges among                         'GO_bp'
+                      Gene Ontology Biological Process terms
+Cellular Component    Genes acting as bridges among                         'GO_cc'
+                      Gene Ontology Cellular Component terms
+Molecular Function    Genes acting as bridges among                         'GO_mf'
+                      Gene Ontology Molecular Function terms
+Disease               Genes acting as bridges for OMIM targets              'Disease_OMIM'
+Disease               Genes acting as bridges for GAD targets               'Disease_GAD'
+Drug                  Genes acting as bridges for DrugBank targets          'Drug_DrugBank'
+microRNA              Genes acting as bridges for microRNA targets          'miRNA'
+Transcription Factors Genes acting as bridges for TF targets                'TF'
+--------------------- ----------------------------------------------------  ----------------
+Table: Gene of interest (GOI) types
 
-data <- c(  '**Topological**', '', "",
-'Degree', 'Number adjacent interactions of the gene', "'degree'", 
-'Betweenness', 'Number of shortest paths from all vertices to all', 
-"'betweenness'",
-'', 'others that pass through that node', "",
-'Closeness', 'Inverse of farness, which is the sum of distances', 
-"'closeness'",
-'', 'to all other nodes', '',
-'Hub score', 'Kleinbergs hub centrality score', "'hub_score'",
-'Eccentricity', 'Shortest path distance from the farthest', "'eccentricity'",
-'', 'node in the graph', '', 
-'Page rank', 'Google Page Rank', "'page_rank'",
-'Start Nodes', 'Nodes without any incoming links', "'start_nodes'",
-'**Functional**', '', "",
-'DEG', 'Genes highly differentially expressed', "'deg'",
-'', 'according to the experimental data', '',
-'Pathways', 'Genes acting as bridges among KEGG pathways', "'KEGG'",
-'Biological Process', 'Genes acting as bridges among', "'GO_bp'",
-'', 'Gene Ontology Biological Process terms', '', 
-'Cellular Component', 'Genes acting as bridges among', "'GO_cc'",
-'', 'Gene Ontology Cellular Component terms', '', 
-'Molecular Function', 'Genes acting as bridges among', "'GO_mf'",
-'', 'Gene Ontology Molecular Function terms', '', 
-'Disease', 'Genes acting as bridges for OMIM targets', "'Disease_OMIM'",
-'Disease', 'Genes acting as bridges for GAD targets', "'Disease_GAD'",
-'Drug', 'Genes acting as bridges for DrugBank targets', "'Drug_DrugBank'",
-'microRNA', 'Genes acting as bridges for microRNA targets', "'miRNA'",
-'Transcription Factors', 'Genes acting as bridges for TF targets', "'TF'"
-)
-data <- matrix(data, nrow=26, ncol=3, byrow=TRUE)
 
-rownames(data) <- rep('', nrow(data))
-colnames(data) <- c('Type', 'Description', 'R parameter')
 
-kable( data,
-    caption = 'Gene of interest (GOI) types' )
-```
 
 ### 5.3. All subpathway options
 
@@ -346,224 +329,171 @@ sixteen and the community-based types are six based on igraph package.
 DEsubs therefore supports 124 subpathway types as described in Tables 7-11.
 
 
-```{r, eval=TRUE, echo=FALSE, results = 'asis'}
-
-data <- c(    
-'**Topological**', '', 
-'Forward and backward streams starting from',
-"'fwd.stream.topological.degree'",
-'genes/nodes with crucial topological roles',
-"'fwd.stream.topological.betweenness'",
-'within the network',               "'fwd.stream.topological.closeness'",
-'',                                 "'fwd.stream.topological.hub_score'",
-'', "'fwd.stream.topological.eccentricity'",
-'', "'fwd.stream.topological.page_rank'",
-'', "'fwd.stream.topological.start_nodes'",
-'', "'bwd.stream.topological.degree'",
-'', "'bwd.stream.topological.betweenness'",
-'', "'bwd.stream.topological.closeness'",
-'', "'bwd.stream.topological.hub_score'",
-'', "'bwd.stream.topological.eccentricity'",
-'', "'bwd.stream.topological.page_rank'",
-'', "'bwd.stream.topological.start_nodes'",
-'**Functional**', '', 
-'Forward and backward streams starting from', "'fwd.stream.functional.GO_bp'",
-'genes/nodes with crucial functional role',  "'fwd.stream.functional.GO_cc'",
-'within the network',                         "'fwd.stream.functional.GO_mf'",
-'',                                 "'fwd.stream.functional.Disease_OMIM'",
-'', "'fwd.stream.functional.Disease_GAD'",
-'', "'fwd.stream.functional.Drug_DrugBank'",
-'', "'fwd.stream.functional.miRNA'",
-'', "'fwd.stream.functional.TF'",
-'', "'fwd.stream.functional.KEGG_pathways'",
-'', "'fwd.stream.functional.DEG'",
-'', "'bwd.stream.functional.GO_bp'",
-'', "'bwd.stream.functional.GOC_cc",
-'', "'bwd.stream.functional.GO_mf'",
-'', "'bwd.stream.functional.Disease_OMIM'",
-'', "'bwd.stream.functional.Disease_GAD'",
-'', "'bwd.stream.functional.Drug_DrugBank'",
-'', "'bwd.stream.functional.miRNA'",
-'', "'bwd.stream.functional.TF'",
-'', "'bwd.stream.functional. KEGG_pathways'",
-'', "'bwd.stream.functional.DEG'") 
-data <- matrix(data, nrow=36, ncol=2, byrow=TRUE)
-
-rownames(data) <- rep('', nrow(data))
-colnames(data) <- c('Desciption', 'R parameter')
-
-kable( data,
-    caption = 'Subpathway Options - STREAM' )
-```
-
-
-
-```{r, eval=TRUE, echo=FALSE, results = 'asis'}
-
-
-data <- c(    
-'**Topological**', '', 
-'Forward and backward streams starting from ',
-                                "'fwd.neighbourhood.topological.degree'",
-'genes/nodes with crucial topological role',
-                                "'fwd.neighbourhood.topological.betweenness'",
-' within the network',          "'fwd.neighbourhood.topological.closeness'",
-'',                             "'fwd.neighbourhood.topological.hub_score'",
-'', "'fwd.neighbourhood.topological.eccentricity'",
-'', "'fwd.neighbourhood.topological.page_rank'",
-'', "'fwd.neighbourhood.topological.start_nodes'",
-'', "'bwd.neighbourhood.topological.degree'",
-'', "'bwd.neighbourhood.topological.betweenness'",
-'', "'bwd.neighbourhood.topological.closeness'",
-'', "'bwd.neighbourhood.topological.hub_score'",
-'', "'bwd.neighbourhood.topological.eccentricity'",
-'', "'bwd.neighbourhood.topological.page_rank'",
-'', "'bwd.neighbourhood.topological.start_nodes'",
-'**Functional**', '', 
-'Forward and backward streams starting from ',     
-                                "'fwd.neighbourhood.functional.GO_bp'",
-'genes/nodes with crucial functional role ',     
-                                "'fwd.neighbourhood.functional.GO_cc'",
-'within the network',                                     
-                                "'fwd.neighbourhood.functional.GO_mf'",
-'',                                                             
-                                "'fwd.neighbourhood.functional.Disease_OMIM'",
-'', "'fwd.neighbourhood.functional.Disease_GAD'",
-'', "'fwd.neighbourhood.functional.Drug_DrugBank'",
-'', "'fwd.neighbourhood.functional.miRNA'",
-'', "'fwd.neighbourhood.functional.TF'",
-'', "'fwd.neighbourhood.functional.KEGG_pathways'",
-'', "'fwd.neighbourhood.functional.DEG'",
-'', "'bwd.neighbourhood.functional.GO_bp'",
-'', "'bwd.neighbourhood.functional.GOC_cc",
-'', "'bwd.neighbourhood.functional.GO_mf'",
-'', "'bwd.neighbourhood.functional.Disease_OMIM'",
-'', "'bwd.neighbourhood.functional.Disease_GAD'",
-'', "'bwd.neighbourhood.functional.Drug_DrugBank'",
-'', "'bwd.neighbourhood.functional.miRNA'",
-'', "'bwd.neighbourhood.functional.TF'",
-'', "'bwd.neighbourhood.functional. KEGG_pathways'",
-'', "'bwd.neighbourhood.functional.DEG'") 
-data <- matrix(data, nrow=36, ncol=2, byrow=TRUE)
-
-rownames(data) <- rep('', nrow(data))
-colnames(data) <- c('Desciption', 'R parameter')
-
-kable( data,
-    caption = 'Subpathway Options - NEIGHBOURHOOD' )
-```
+Description                                     R parameter
+----------------------------------------------- ----------------------------------------------- 
+**Topological**
+Forward and backward streams starting from      'fwd.stream.topological.degree'
+genes/nodes with crucial topological roles      'fwd.stream.topological.betweenness'
+within the network                              'fwd.stream.topological.closeness'
+                                                'fwd.stream.topological.hub_score'
+                                                'fwd.stream.topological.eccentricity'
+                                                'fwd.stream.topological.page_rank'
+                                                'fwd.stream.topological.start_nodes'
+                                                'bwd.stream.topological.degree'
+                                                'bwd.stream.topological.betweenness'
+                                                'bwd.stream.topological.closeness'
+                                                'bwd.stream.topological.hub_score'
+                                                'bwd.stream.topological.eccentricity'
+                                                'bwd.stream.topological.page_rank'
+                                                'bwd.stream.topological.start_nodes'
+**Functional**
+Forward and backward streams starting from      'fwd.stream.functional.GO_bp'
+genes/nodes with crucial functional roles       'fwd.stream.functional.GO_cc'
+within the network                              'fwd.stream.functional.GO_mf'
+                                                'fwd.stream.functional.Disease_OMIM'
+                                                'fwd.stream.functional.Disease_GAD'
+                                                'fwd.stream.functional.Drug_DrugBank'
+                                                'fwd.stream.functional.miRNA'
+                                                'fwd.stream.functional.TF'
+                                                'fwd.stream.functional.KEGG'
+                                                'fwd.stream.functional.DEG'
+                                                'bwd.stream.functional.GO_bp'
+                                                'bwd.stream.functional.GO_cc'
+                                                'bwd.stream.functional.GO_mf'
+                                                'bwd.stream.functional.Disease_OMIM'
+                                                'bwd.stream.functional.Disease_GAD'
+                                                'bwd.stream.functional.Drug_DrugBank'
+                                                'bwd.stream.functional.miRNA'
+                                                'bwd.stream.functional.TF'
+                                                'bwd.stream.functional.KEGG'
+                                                'bwd.stream.functional.DEG'
+----------------------------------------------- ----------------------------------------------- 
+Table: Subpathway Options - STREAM
 
 
 
 
-```{r, eval=TRUE, echo=FALSE, results = 'asis'}
-
-data <- c(    
-'**Topological**', '', 
-'Forward and backward streams starting from',     
-                            "'fwd.cascade.topological.degree'",
-'genes/nodes with crucial topological role',     
-                            "'fwd.cascade.topological.betweenness'",
-'within the network',                                     
-                            "'fwd.cascade.topological.closeness'",
-'', "'fwd.cascade.topological.hub_score'",
-'', "'fwd.cascade.topological.eccentricity'",
-'', "'fwd.cascade.topological.page_rank'",
-'', "'fwd.cascade.topological.start_nodes'",
-'', "'bwd.cascade.topological.degree'",
-'', "'bwd.cascade.topological.betweenness'",
-'', "'bwd.cascade.topological.closeness'",
-'', "'bwd.cascade.topological.hub_score'",
-'', "'bwd.cascade.topological.eccentricity'",
-'', "'bwd.cascade.topological.page_rank'",
-'', "'bwd.cascade.topological.start_nodes'",
-'**Functional**', '', 
-'Forward and backward streams starting from',
-                                    "'fwd.cascade.functional.GO_bp'",
-'genes/nodes with crucial functional role',
-                                    "'fwd.cascade.functional.GO_cc'",
-'within the network',         
-                                    "'fwd.cascade.functional.GO_mf'",
-'',                       
-                                    "'fwd.cascade.functional.Disease_OMIM'",
-'', "'fwd.cascade.functional.Disease_GAD'",
-'', "'fwd.cascade.functional.Drug_DrugBank'",
-'', "'fwd.cascade.functional.miRNA'",
-'', "'fwd.cascade.functional.TF'",
-'', "'fwd.cascade.functional.KEGG'",
-'', "'fwd.cascade.functional.DEG'",
-'', "'bwd.cascade.functional.GO_bp'",
-'', "'bwd.cascade.functional.GOC_cc",
-'', "'bwd.cascade.functional.GO_mf'",
-'', "'bwd.cascade.functional.Disease_OMIM'",
-'', "'bwd.cascade.functional.Disease_GAD'",
-'', "'bwd.cascade.functional.Drug_DrugBank'",
-'', "'bwd.cascade.functional.miRNA'",
-'', "'bwd.cascade.functional.TF'",
-'', "'bwd.cascade.functional.KEGG'",
-'', "'bwd.cascade.functional.DEG'") 
-data <- matrix(data, nrow=36, ncol=2, byrow=TRUE)
-
-rownames(data) <- rep('', nrow(data))
-colnames(data) <- c('Desciption', 'R parameter')
-
-kable( data,
-    caption = 'Subpathway Options - CASCADE' )
-```
+Description                                     R parameter
+----------------------------------------------- ----------------------------------------------- 
+**Topological**
+Forward and backward neighbourhoods starting    'fwd.neighbourhood.topological.degree'
+from genes/nodes with crucial topological       'fwd.neighbourhood.topological.betweenness'
+roles within the network                        'fwd.neighbourhood.topological.closeness'
+                                                'fwd.neighbourhood.topological.hub_score'
+                                                'fwd.neighbourhood.topological.eccentricity'
+                                                'fwd.neighbourhood.topological.page_rank'
+                                                'fwd.neighbourhood.topological.start_nodes'
+                                                'bwd.neighbourhood.topological.degree'
+                                                'bwd.neighbourhood.topological.betweenness'
+                                                'bwd.neighbourhood.topological.closeness'
+                                                'bwd.neighbourhood.topological.hub_score'
+                                                'bwd.neighbourhood.topological.eccentricity'
+                                                'bwd.neighbourhood.topological.page_rank'
+                                                'bwd.neighbourhood.topological.start_nodes'
+**Functional**
+Forward and backward neighbourhoods starting    'fwd.neighbourhood.functional.GO_bp'
+from genes/nodes with crucial topological       'fwd.neighbourhood.functional.GO_cc'
+roles within the network                        'fwd.neighbourhood.functional.GO_mf'
+                                                'fwd.neighbourhood.functional.Disease_OMIM'
+                                                'fwd.neighbourhood.functional.Disease_GAD'
+                                                'fwd.neighbourhood.functional.Drug_DrugBank'
+                                                'fwd.neighbourhood.functional.miRNA'
+                                                'fwd.neighbourhood.functional.TF'
+                                                'fwd.neighbourhood.functional.KEGG'
+                                                'fwd.neighbourhood.functional.DEG'
+                                                'bwd.neighbourhood.functional.GO_bp'
+                                                'bwd.neighbourhood.functional.GO_cc'
+                                                'bwd.neighbourhood.functional.GO_mf'
+                                                'bwd.neighbourhood.functional.Disease_OMIM'
+                                                'bwd.neighbourhood.functional.Disease_GAD'
+                                                'bwd.neighbourhood.functional.Drug_DrugBank'
+                                                'bwd.neighbourhood.functional.miRNA'
+                                                'bwd.neighbourhood.functional.TF'
+                                                'bwd.neighbourhood.functional.KEGG'
+                                                'bwd.neighbourhood.functional.DEG'
+----------------------------------------------- ----------------------------------------------- 
+Table: Subpathway Options - NEIGHBOURHOOD
 
 
 
 
+Description                                     R parameter
+----------------------------------------------- ----------------------------------------------- 
+**Topological**
+Forward and backward cascades starting          'fwd.cascade.topological.degree'
+from genes/nodes with crucial topological       'fwd.cascade.topological.betweenness'
+roles within the network                        'fwd.cascade.topological.closeness'
+                                                'fwd.cascade.topological.hub_score'
+                                                'fwd.cascade.topological.eccentricity'
+                                                'fwd.cascade.topological.page_rank'
+                                                'fwd.cascade.topological.start_nodes'
+                                                'bwd.cascade.topological.degree'
+                                                'bwd.cascade.topological.betweenness'
+                                                'bwd.cascade.topological.closeness'
+                                                'bwd.cascade.topological.hub_score'
+                                                'bwd.cascade.topological.eccentricity'
+                                                'bwd.cascade.topological.page_rank'
+                                                'bwd.cascade.topological.start_nodes'
+**Functional**
+Forward and backward cascades starting          'fwd.cascade.functional.GO_bp'
+from genes/nodes with crucial topological       'fwd.cascade.functional.GO_cc'
+roles within the network                        'fwd.cascade.functional.GO_mf'
+                                                'fwd.cascade.functional.Disease_OMIM'
+                                                'fwd.cascade.functional.Disease_GAD'
+                                                'fwd.cascade.functional.Drug_DrugBank'
+                                                'fwd.cascade.functional.miRNA'
+                                                'fwd.cascade.functional.TF'
+                                                'fwd.cascade.functional.KEGG'
+                                                'fwd.cascade.functional.DEG'
+                                                'bwd.cascade.functional.GO_bp'
+                                                'bwd.cascade.functional.GO_cc'
+                                                'bwd.cascade.functional.GO_mf'
+                                                'bwd.cascade.functional.Disease_OMIM'
+                                                'bwd.cascade.functional.Disease_GAD'
+                                                'bwd.cascade.functional.Drug_DrugBank'
+                                                'bwd.cascade.functional.miRNA'
+                                                'bwd.cascade.functional.TF'
+                                                'bwd.cascade.functional.KEGG'
+                                                'bwd.cascade.functional.DEG'
+----------------------------------------------- ----------------------------------------------- 
+Table: Subpathway Options - CASCADE
 
-```{r, eval=TRUE, echo=FALSE, results = 'asis'}
 
-data <- c(     
-'Random Walk', 'Community structures that minimize ', "'community.infomap'",
-'',             'the expected description length of',         "", 
-'',             'a random walker trajectory',             "", 
-'Modular', 'Community structures via a modularity ', "'community.louvain'",
-'',             'measure and a hierarchical approach',     "", 
-'Walktraps',     'Densely connected subgraphs via',  "'community.walktrap'",
-'',             'random walks', '',  
-'Leading eigen', 'Densely connected subgraphs based ',
-"'community.leading_eigen'",
-'',             'on the leading non-negative eigen-', '', 
-'',             'vector of the modularity matrix', '', 
-'Betweeneess','Community structures detection',"'community.edge_betweenness'",
-'',             'via edge betweenness', '',
-'Greedy', 'Community structures via greedy ', "'community.fast_greedy'",
-'',             'optimization of modularity', '') 
 
-data <- matrix(data, nrow=14, ncol=3, byrow=TRUE)
-
-rownames(data) <- rep('', nrow(data))
-colnames(data) <- c('Type', 'Desciption', 'R parameter')
-
-kable( data,
-    caption = 'Subpathway Options - COMMUNITY' )
-```
+Type               Description                            R parameter
+------------------ -------------------------------------  -------------------------------------- 
+Random Walk         Community structures that minimize    'community.infomap'
+                    the expected description length of
+                    a random walker trajectory
+Modular             Community structures via a modularity 'community.louvain'
+                    measure and a hierarchical approach
+Walktraps           Densely connected subgraphs via       'community.walktrap'
+                    random walks
+Leading eigen       Densely connected subgraphs based     'community.leading_eigen'
+                    on the leading non-negative eigen-
+                    vector of the modularity matrix
+Betweeneess         Community structures detection        'community.edge_betweenness'
+                    via edge betweenness
+Greedy              Community structures via greedy       'community.fast_greedy'
+                    optimization of modularity
+------------------ -------------------------------------  -------------------------------------- 
+Table: Subpathway Options - COMMUNITY
 
 
 
-```{r, eval=TRUE, echo=FALSE, results = 'asis'}
+Type               Description                            R parameter
+------------------ -------------------------------------  -------------------------------------- 
+Cliques            A subgraph where every two distinct    'component.3-cliques'
+                   vertices in the clique are adjacent    ...
+                                                          'component.9-cliques'
+K-core             A maximal subgraph in which each       'component.3-coreness'
+                   vertex has at least degree k           ...
+                                                          'component.9-coreness'
+Max cliques       Largest of maximal cliques              'component.max_cliques'
+Components        All single components                   'component.decompose'
+------------------ -------------------------------------  -------------------------------------- 
+Table: Subpathway Options - COMPONENT
 
-data <- c('Cliques', 'A subgraph where every two distinct',
-"'component.3-cliques', ",
-'', 'vertices in the clique are adjacent', "     ....     ",
-'', '',  "'component.9-cliques', ",
-'K-core', 'A maximal subgraph in which each', "'component.3-coreness'",
-'', 'vertex has at least degree k', "     ....     ", 
-'', '', "'component.9-coreness'",
-'Max cliques', 'Largest of maximal cliques', "'component.max_cliques'",
-'Components', 'All single components', "'component.decompose'") 
-data <- matrix(data, nrow=8, ncol=3, byrow=TRUE)
-
-rownames(data) <- rep('', nrow(data))
-colnames(data) <- c('Type', 'Desciption', 'R parameter')
-
-kable( data,
-    caption = 'Subpathway Options - COMPONENT' )
-```
 
 
 An example follows where *community.walktrap* is selected as the 
@@ -585,14 +515,20 @@ DEsubs.run <- DEsubs(
 
 \newpage
 
-![Subpathway extraction options consist of five main categories. 
-The three of them (cascade, neighborhood, stream) are sub-categorized according
-to features (topological or functional) and the direction of propagation 
-(forward or backward) of the gene of interest where each subpathway is 
-starting. The other two (component, community) are sub-categorized according 
-to various topological properties.
-](figures/fig2.png "Schematic overview of subpathway options"){height=750px}
 
+
+```{r eval=TRUE, echo=FALSE, out.height='575px', fig.align='center', fig.cap=cap}
+
+cap <- paste0(
+    'Subpathway extraction options consist of five main categories. ', 
+    'The three of them (cascade, neighborhood, stream) are sub-categorized ', 
+    'according to features (topological or functional) and the direction of ',
+    'propagation (forward or backward) of the gene of interest where each ',
+    'subpathway is starting. The other two (component, community) are ',
+    'sub-categorized according to various topological properties.')
+
+knitr::include_graphics('figures/fig2.png')
+```
 
 
 ## 6. Subpathway enrichment analysis
@@ -639,20 +575,15 @@ Transcription Factor    Gene targetsof transcription    [@chen2013enrichr]
 Table: List of external databases
 
 
-```{r, eval=TRUE, echo=FALSE, results = 'asis'}
+Term      Target 1  Target 2  Target 3  Target 4  Target 5  Target 6  Target 7 
+--------- --------- --------- --------- --------- --------- --------- --------- 
+Term 1    ACAD9     ACAD8     SH3GLB1   ESCO2     ESCO1     ADH1C     '0'
+Term 2    ADH1C     ADH1B     ADHFE1    ADH1A     ADH6      ADH7      ADH4
+...       ...       ...       ...       ...       ...       ...       ...              
+Term N    PTPN1     RHOA      ACTN4     ACTN3     ACTN2     '0'       '0'
+--------- --------- --------- --------- --------- --------- --------- --------- 
+Table:  Example of custom gene set
 
-data <- c(  'ACAD9', 'ACAD8', 'SH3GLB1', 'ESCO2', 'ESCO1', 'ADH1C', '"0"',
-            'ADH1C', 'ADH1B', 'ADHFE1', 'ADH1A', 'ADH6', 'ADH7', 'ADH4',
-            '...', '...', '...', '...', '...', '...', '...',
-            'PTPN1', 'RHOA', 'ACTN4', 'ACTN3', 'ACTN2', '"0"', '"0"')
-data <- matrix(data, nrow=4, ncol=7, byrow=TRUE)
-
-rownames(data) <- c(paste0('Term ', 1:2), '...',  'Term N')
-colnames(data) <- paste0('Target ', 1:7)
-
-kable( data,
-    caption = 'Example of custom gene set' )
-```
 
 
 
@@ -664,26 +595,34 @@ kable( data,
 ## 7. Visualization
 
 DEsubs visualizes its results at a gene, subpathway and organism level through
-various schemes such as bar plots, heat maps, directed weighted graphs, z
-circular diagrams and dot plots. Indicative examples are illustrated in 
-figures 2-8 based on DEsubs executions using the human pathway network and 
-a synthetic dataset. Bar plots show the genes with the best Q-value from the 
-user-selected DE analysis tool (the user defines the desired gene number). 
-The figures are exported in the directory *Output* within the user specified 
-location. Heat maps show the genes with the highest values either in our 
-topological or functional measures (see Table 6).
+various schemes such as bar plots, heat maps, directed weighted graphs, 
+circular diagrams [@gu2014circlize] and dot plots. Indicative examples are 
+illustrated in figures 2-8 based on DEsubs executions using the human pathway 
+network and a synthetic dataset. Bar plots show the genes with the best Q-value 
+from the user-selected DE analysis tool (the user defines the desired gene 
+number). The figures are exported in the directory *Output* within the user 
+specified location. Heat maps show the genes with the highest values either 
+in our topological or functional measures (see Table 6).
 
-![Bar plots show the genes with the best Q-value from the user-selected 
-DE analysis tool (the user defines the desired gene number). Heat maps show 
-the genes with the highest values either in our topological or functional 
-measures (see Table 6). Each extracted subpathway is illustrated though a 
-directed graph by imprinting the degree of DE and correlation among the 
-respective gene members. Subpathway enrichment in association with biological 
-and pharmacological features (such as pathway terms, gene ontologies, 
-regulators, diseases and drug targets) is depicted through circular diagrams
-[@gu2014circlize]. 
-The total picture of the enriched subpathways is performed with dot plots. 
-](figures/fig3.png "Visualization overview."){height=500px}
+
+```{r eval=TRUE, echo=FALSE, out.height='385px', fig.align='center', fig.cap=cap, fig.pos='h', out.extra=''}
+
+cap <- paste0(
+    'Bar plots show the genes with the best Q-value from the user-selected ',
+    'DE analysis tool (the user defines the desired gene number). ',
+    'Heat maps show the genes with the highest values either in our ',
+    'topological or functional measures (see Table 6). ',
+    'Each extracted subpathway is illustrated though a directed graph by ',
+    'imprinting the degree of DE and correlation among the respective gene ',
+    'members. Subpathway enrichment in association with biological and ',
+    'pharmacological features (such as pathway terms, gene ontologies, ',
+    'regulators, diseases and drug targets) is depicted through circular ',
+    'diagrams. The total picture of the enriched subpathways is performed ', 
+    'with dot plots.')
+
+knitr::include_graphics('figures/fig3.png')
+```
+
 
 \newpage
 

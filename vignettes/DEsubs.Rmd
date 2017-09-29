@@ -130,13 +130,13 @@ the package itself (see Table 3).
 
 
 Supported Labels              R command
-------------                  ----------------
+------------------            --------------------------------------------------
 Entrez                        'entrezgene'
 Ensemble                      'ensembl_gene_id', 'ensembl_transcript_id'
                               'ensembl_peptide_id'
 HGNC                          'hgnc_id', 'hgnc_symbol', 'hgnc_transcript_name'
 Refseq                        'refseq_mrna', 'refseq_peptide'
-------------                  ----------------
+------------------            -------------------------------------------------
 Table: Supported gene labels
 
 
@@ -285,35 +285,35 @@ significant DEGs of his own experiment. A short description for all GOI types
 along with the corresponding parameters are shown in Table 6. 
 
 
-Type                  Description                                           R command
---------------------- ----------------------------------------------------  ----------------
+Type                   Description                                           R command
+---------------------- ----------------------------------------------------  -------------
 **Topological**
-Degree                Number of adjacent interactions of the gene           'degree'
-Betweenness           Number of shortest paths from all vertices to all     'betweenness'
-                      others that pass through that node
-Closeness             Inverse of farness, which is the sum of distances     'closeness'
-                      to all other nodes
-Hub score             Kleinbergs hub centrality score                       'hub_score'
-Eccentricity          Shortest path distance from the farthest              'eccentricity'
-                      node in the graph
-Page rank             Google Page Rank                                      'page_rank'
-Start Nodes           Nodes without any incoming links                      'start_nodes'
+Degree                 Number of adjacent interactions of the gene           'degree'
+Betweenness            Number of shortest paths from all vertices to all     'betweenness'
+                       others that pass through that node
+Closeness              Inverse of farness, which is the sum of distances     'closeness'
+                       to all other nodes
+Hub score              Kleinbergs hub centrality score                       'hub_score'
+Eccentricity           Shortest path distance from the farthest              'eccentricity'
+                       node in the graph
+Page rank              Google Page Rank                                      'page_rank'
+Start Nodes            Nodes without any incoming links                      'start_nodes'
 **Functional**
-DEG                   Genes highly differentially expressed                 'deg'
-                      according to the experimental data
-Pathways              Genes acting as bridges among KEGG pathways           'KEGG'
-Biological Process    Genes acting as bridges among                         'GO_bp'
-                      Gene Ontology Biological Process terms
-Cellular Component    Genes acting as bridges among                         'GO_cc'
-                      Gene Ontology Cellular Component terms
-Molecular Function    Genes acting as bridges among                         'GO_mf'
-                      Gene Ontology Molecular Function terms
-Disease               Genes acting as bridges for OMIM targets              'Disease_OMIM'
-Disease               Genes acting as bridges for GAD targets               'Disease_GAD'
-Drug                  Genes acting as bridges for DrugBank targets          'Drug_DrugBank'
-microRNA              Genes acting as bridges for microRNA targets          'miRNA'
-Transcription Factors Genes acting as bridges for TF targets                'TF'
---------------------- ----------------------------------------------------  ----------------
+DEG                    Genes highly differentially expressed                 'deg'
+                       according to the experimental data
+Pathways               Genes acting as bridges among KEGG pathways           'KEGG'
+Biological Process     Genes acting as bridges among                         'GO_bp'
+                       Gene Ontology Biological Process terms
+Cellular Component     Genes acting as bridges among                         'GO_cc'
+                       Gene Ontology Cellular Component terms
+Molecular Function     Genes acting as bridges among                         'GO_mf'
+                       Gene Ontology Molecular Function terms
+Disease                Genes acting as bridges for OMIM targets              'Disease_OMIM'
+Disease                Genes acting as bridges for GAD targets               'Disease_GAD'
+Drug                   Genes acting as bridges for DrugBank targets          'Drug_DrugBank'
+microRNA               Genes acting as bridges for microRNA targets          'miRNA'
+Transcription Factors  Genes acting as bridges for TF targets                'TF'
+---------------------- ----------------------------------------------------  -------------
 Table: Gene of interest (GOI) types
 
 
@@ -455,43 +455,43 @@ roles within the network                        'fwd.cascade.functional.GO_mf'
                                                 'bwd.cascade.functional.TF'
                                                 'bwd.cascade.functional.KEGG'
                                                 'bwd.cascade.functional.DEG'
------------------------------------------------ ----------------------------------------------- 
+----------------------------------------------- -----------------------------------------------
 Table: Subpathway Options - CASCADE
 
 
 
-Type               Description                            R parameter
------------------- -------------------------------------  -------------------------------------- 
-Random Walk         Community structures that minimize    'community.infomap'
-                    the expected description length of
-                    a random walker trajectory
-Modular             Community structures via a modularity 'community.louvain'
-                    measure and a hierarchical approach
-Walktraps           Densely connected subgraphs via       'community.walktrap'
-                    random walks
-Leading eigen       Densely connected subgraphs based     'community.leading_eigen'
-                    on the leading non-negative eigen-
-                    vector of the modularity matrix
-Betweeneess         Community structures detection        'community.edge_betweenness'
-                    via edge betweenness
-Greedy              Community structures via greedy       'community.fast_greedy'
-                    optimization of modularity
------------------- -------------------------------------  -------------------------------------- 
+Type          Description                                 R parameter
+------------- ------------------------------------------  -------------------------------------
+Random Walk    Community structures that minimize         'community.infomap'
+               the expected description length of
+               a random walker trajectory
+Modular        Community structures via a modularity      'community.louvain'
+               measure and a hierarchical approach
+Walktraps      Densely connected subgraphs via            'community.walktrap'
+               random walks
+Leading eigen  Densely connected subgraphs based          'community.leading_eigen'
+               on the leading non-negative eigen-
+               vector of the modularity matrix
+Betweeneess    Community structures detection             'community.edge_betweenness'
+               via edge betweenness
+Greedy         Community structures via greedy            'community.fast_greedy'
+               optimization of modularity
+------------- ------------------------------------------  -------------------------------------
 Table: Subpathway Options - COMMUNITY
 
 
 
-Type               Description                            R parameter
------------------- -------------------------------------  -------------------------------------- 
-Cliques            A subgraph where every two distinct    'component.3-cliques'
-                   vertices in the clique are adjacent    ...
+Type          Description                                 R parameter
+------------- ------------------------------------------  -------------------------------------- 
+Cliques       A subgraph where every two distinct         'component.3-cliques'
+              vertices in the clique are adjacent          ...
                                                           'component.9-cliques'
-K-core             A maximal subgraph in which each       'component.3-coreness'
-                   vertex has at least degree k           ...
+K-core        A maximal subgraph in which each            'component.3-coreness'
+              vertex has at least degree k                ...
                                                           'component.9-coreness'
-Max cliques       Largest of maximal cliques              'component.max_cliques'
-Components        All single components                   'component.decompose'
------------------- -------------------------------------  -------------------------------------- 
+Max cliques   Largest of maximal cliques                  'component.max_cliques'
+Components    All single components                       'component.decompose'
+------------- ------------------------------------------  -------------------------------------- 
 Table: Subpathway Options - COMPONENT
 
 
@@ -644,7 +644,7 @@ res <- geneVisualization(
             export='plot', verbose=FALSE)
 ```
 
-```{r, echo=FALSE, fig.width=6.2, fig.height=5.2, fig.cap=cap }
+```{r, echo=FALSE, fig.width=6.2, fig.height=5.2, fig.cap=cap, fig.pos='h', out.extra='' }
 
 cap <- 'Bars illustrate the genes with the highest Q-values.'
 
@@ -660,7 +660,7 @@ res <- geneVisualization(
 ```
 
 
-```{r, echo=FALSE, fig.width=7, fig.height=4, fig.cap=cap  }
+```{r, echo=FALSE, fig.width=7, fig.height=4, fig.align='center', fig.cap=cap  }
 
 cap <- 'Heat map represents the twelve genes with the highest values of 
 functional measures. The values are scaled and the red graduation indicates 
@@ -720,7 +720,7 @@ res <- subpathwayToGraph(
 ```
 
 
-```{r, echo=FALSE, fig.width=3.5, fig.height=3.5, fig.cap=cap }
+```{r, echo=FALSE, fig.width=3.5, fig.height=3.5, fig.align='center', fig.cap=cap, fig.pos='h', out.extra='' }
 
 library('DEsubs')
 load(system.file('extdata', 'data.RData', package='DEsubs'))
@@ -756,7 +756,7 @@ res <- subpathwayVisualization(
 
 ```
 
-```{r, echo=FALSE, fig.width=3.8, fig.height=3.8, fig.cap=cap }
+```{r, echo=FALSE, fig.width=3.8, fig.height=3.8, fig.align='center', fig.cap=cap }
 
 cap <- 'Circular Diagram shows the associations among genes including in a 
 subpathway and Gene Ontology terms where are enriched'
@@ -774,7 +774,7 @@ res <- subpathwayVisualization(
                     verbose=FALSE)
 ```
 
-```{r, echo=FALSE, fig.width=4.0, fig.height=4.0, fig.cap=cap }
+```{r, echo=FALSE, fig.width=4.0, fig.height=4.0, fig.align='center', fig.cap=cap }
 
 cap <- 'Circular Diagram shows the associations among genes included in a 
 subpathway and enriched Transcription Factors.'
@@ -808,7 +808,7 @@ res <- organismVisualization(
                     verbose=FALSE)
 ```
 
-```{r, echo=FALSE, fig.width=7.4, fig.height=6, fig.cap=cap}
+```{r, echo=FALSE, fig.width=7.4, fig.height=6, fig.align='center', fig.cap=cap, fig.pos='h', out.extra=''}
 
 cap <- 'Dot plot shows the enriched associations among experiment-specific 
 extracted subpathways and pathwaysfrom KEGG database. 

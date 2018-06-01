@@ -716,7 +716,7 @@ res <- subpathwayToGraph(
                     DEsubs.out=DEsubs.out, 
                     submethod='community.walktrap', 
                     subname='sub6', verbose=FALSE,
-                    export=c('plot', 'gml', 'edgelist') )
+                    export='plot' )
 ```
 
 
@@ -735,7 +735,7 @@ res <- subpathwayToGraph(
                     submethod='community.walktrap', 
                     subname='sub6', 
                     verbose=FALSE,
-                    export=c('plot', 'gml', 'edgelist') )
+                    export='plot' )
 ```
 
 Subpathway enrichment in association with biological and pharmacological 

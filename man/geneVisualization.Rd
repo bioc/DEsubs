@@ -72,6 +72,10 @@ references.
 
 load(system.file('extdata', 'data.RData', package='DEsubs'))
 
+outfile.topological <- tempfile(fileext='.pdf') 
+outfile.functional <- tempfile(fileext='.pdf') 
+outfile.barplot <- tempfile(fileext='.pdf') 
+
 res <- geneVisualization(  
             DEsubs.out=DEsubs.out, top=10,
             measures.topological=c( 'degree', 'betweenness', 'closeness',
@@ -82,6 +86,10 @@ res <- geneVisualization(
             size.topological=c(5,4),
             size.functional=c(7,4),
             size.barplot=c(5,6),
-            export='pdf', verbose=FALSE)
+            export='pdf',
+            outfile.topological=outfile.topological,
+            outfile.functional=outfile.functional,
+            outfile.barplot=outfile.barplot,
+            verbose=FALSE)
 
 }

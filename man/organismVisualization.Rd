@@ -43,10 +43,14 @@ Organism level measures
 
 load(system.file('extdata', 'data.RData', package='DEsubs'))
 
+outfile <- tempfile(fileext='.pdf')  
+
 res <- organismVisualization( 
                 DEsubs.out=DEsubs.out, references='KEGG', 
                 topSubs=10, topTerms=20,
-                export='pdf', width=7, height=6,
+                width=7, height=6,
+                export='pdf', 
+                outfile=outfile,
                 verbose=FALSE)
 
 }

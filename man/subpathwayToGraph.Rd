@@ -34,12 +34,14 @@ Subpathway plotting as a graph.
 
 load(system.file('extdata', 'data.RData', package='DEsubs'))
 
+outfile <- tempfile(fileext='.pdf')  
 
 res <- subpathwayToGraph( 
                 DEsubs.out=DEsubs.out, 
                 submethod='community.walktrap', 
                 subname=paste0('sub', 6),
                 size=c(10,10),
-                export='pdf' )
+                export='pdf',
+                outfile=outfile )
 
 }

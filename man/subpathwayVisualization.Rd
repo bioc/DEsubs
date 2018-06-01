@@ -56,12 +56,16 @@ issues.
 
 load(system.file('extdata', 'data.RData', package='DEsubs'))
 
+outfile <- tempfile(fileext='.pdf') 
+
 res <- subpathwayVisualization( 
                 DEsubs.out=DEsubs.out,  
                 references=c('TF'), 
                 submethod='community.walktrap',
                 subname='sub1', 
-                scale=c(1.0), export='pdf')
+                scale=c(1.0), 
+                export='pdf',
+                outfile=outfile )
 
 }
 

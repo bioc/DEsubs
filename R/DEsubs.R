@@ -60,7 +60,7 @@ DEsubs <- function( org, mRNAexpr, mRNAnomenclature, pathways,
     if ( missing(classes) )      { message('Please supply the classes.') }
     if ( missing(DEGchoice) )    { message('Please supply a type.') }
 
-    supportedMethods <- c('edgeR', 'DESeq', 'EBSeq', 'samr', 'NBPSeq', 
+    supportedMethods <- c('edgeR', 'DESeq', 'EBSeq', 'NBPSeq', 
                             'voom+limma', 'vst+limma', 'TSPM')
 
     if ( DEGchoice == 'edgeR' )
@@ -116,34 +116,34 @@ DEsubs <- function( org, mRNAexpr, mRNAnomenclature, pathways,
 
         return(adjpvalues)
     }
-    if ( DEGchoice == 'samr' )
-    {
-        # samr
-        sink( tempfile() ) 
-        SAMseq.test <- suppressMessages(SAMseq(count.matrix, classes, 
-                            resp.type="Two class unpaired", 
-                            geneid = rownames(count.matrix), 
-                            genenames = rownames(count.matrix),
-                            nperms = 100, nresamp = 20, fdr.output = 1))
-        SAMseq.result.table <- rbind( 
-                            SAMseq.test[['siggenes.table']][['genes.up']], 
-                            SAMseq.test[['siggenes.table']][['genes.lo']])
-        SAMseq.score        <- rep(0,  nrow(count.matrix))
-        idx                 <- match(SAMseq.result.table[,1], 
-                                    rownames(count.matrix))
-        SAMseq.score[idx]   <- as.numeric(SAMseq.result.table[,3])
-        SAMseq.FDR          <- rep(1, nrow(count.matrix))
-        idx                 <- match(SAMseq.result.table[,1], 
-                                    rownames(count.matrix)) 
-        SAMseq.FDR[idx]     <- as.numeric(SAMseq.result.table[,5])/100
-        adjpvalues          <- SAMseq.FDR
-        genes               <- SAMseq.result.table[, 'Gene ID']
-        names(adjpvalues)   <- genes
+    # if ( DEGchoice == 'samr' )
+    # {
+    #     # samr
+    #     sink( tempfile() ) 
+    #     SAMseq.test <- suppressMessages(SAMseq(count.matrix, classes, 
+    #                         resp.type="Two class unpaired", 
+    #                         geneid = rownames(count.matrix), 
+    #                         genenames = rownames(count.matrix),
+    #                         nperms = 100, nresamp = 20, fdr.output = 1))
+    #     SAMseq.result.table <- rbind( 
+    #                         SAMseq.test[['siggenes.table']][['genes.up']], 
+    #                         SAMseq.test[['siggenes.table']][['genes.lo']])
+    #     SAMseq.score        <- rep(0,  nrow(count.matrix))
+    #     idx                 <- match(SAMseq.result.table[,1], 
+    #                                 rownames(count.matrix))
+    #     SAMseq.score[idx]   <- as.numeric(SAMseq.result.table[,3])
+    #     SAMseq.FDR          <- rep(1, nrow(count.matrix))
+    #     idx                 <- match(SAMseq.result.table[,1], 
+    #                                 rownames(count.matrix)) 
+    #     SAMseq.FDR[idx]     <- as.numeric(SAMseq.result.table[,5])/100
+    #     adjpvalues          <- SAMseq.FDR
+    #     genes               <- SAMseq.result.table[, 'Gene ID']
+    #     names(adjpvalues)   <- genes
 
-        sink()
+    #     sink()
 
-        return(adjpvalues)
-    }
+    #     return(adjpvalues)
+    # }
     if ( DEGchoice == 'EBSeq' )
     {
         # run EBSeq

@@ -203,12 +203,12 @@ Supported Labels                                    R command
 [@leng2013ebseq]                                    'EBSeq'
 [@smyth2004linear]                                  'vst+limma'
 [@anders2010differential]; [@smyth2004linear]       'voom+limma'
-[@li2013finding]                                    'samr'
 [@di2011nbp]                                        'NBPSeq'
 [@auer2011two]                                      'TSPM'
 --------------                                      ----------------
 Table: Node Rule options
 
+\newpage
 
 ## 5. Subpathway Extraction 
 

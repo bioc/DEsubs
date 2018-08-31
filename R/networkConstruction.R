@@ -105,6 +105,22 @@
         { 
             genes <- rankedList 
         }
+
+        # [1.7.3] Since argument 'rankedList' only worked with entrezids, 
+        # it made sense to identify the annotation automatically for 
+        # compatibility considerations.
+        nomenclature <- .identifyNomenclature( x=names(genes), org=org )
+
+        # Change ranked-list nomenclature if necessary
+        if ( nomenclature != 'entrezgene' )
+        {
+            # Get a mapper from entrez to the needed nomenclature
+            xlib <- .annotationMap(org=org, nomenclature=nomenclature)
+            # Keep elements with valid entrez ids
+            genes <- genes[names(genes) %in% names(xlib)]
+            # Convert to entrez ids
+            names(genes) <- xlib[names(genes)] 
+        }
     }
 
     # if (verbose)

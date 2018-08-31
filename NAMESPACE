@@ -107,7 +107,8 @@ importFrom( 'stats',
                 'phyper',
                 'model.matrix',
                 'cor',
-                'predict')
+                'predict',
+                'setNames')
 importFrom( 'pheatmap',
                 'pheatmap')
 importFrom( 'utils',

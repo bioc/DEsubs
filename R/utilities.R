@@ -136,3 +136,27 @@
     }
 } 
 
+.annotationMap <- function(org, nomenclature)
+{
+    file <- 'extdata//Data//libraryEntrezToExternalNomenclature.RData'
+    file  <- system.file(file, package='DEsubs')
+    load(file, e <- new.env())
+    orgLib <- e[['libraryEntrezToExternalNomenclature']][[org]]
+
+    lib <- orgLib[[nomenclature]]
+    xlib <- setNames(lib[, 1], lib[, 2])
+    return(xlib)
+}
+
+.identifyNomenclature <- function(x, org)
+{
+    file <- 'extdata//Data//libraryEntrezToExternalNomenclature.RData'
+    file  <- system.file(file, package='DEsubs')
+    load(file, e <- new.env())
+    orgLib <- e[['libraryEntrezToExternalNomenclature']][[org]]
+
+    out <- sapply(orgLib, function(lib)
+        { length(base::intersect(x, lib[, 2])) })
+    out <- if ( max(out) > 0) names(which.max(out)) else 'entrezgene'
+    return(out)
+}

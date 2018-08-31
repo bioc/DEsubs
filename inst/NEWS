@@ -1,20 +1,18 @@
-1.7.2   - Removed 'Significance Analysis of Microarrays' (SAM) from 
+1.6.3   - Updated rankedList argument in DEsubs() to receive gene identifiers
+            in any of the supported mRNAnomenclatures.
+1.6.2   - Removed 'Significance Analysis of Microarrays' (SAM) from 
             available differential expression analysis options due to the 
             removal of its package from the ecosystem.
+
 1.3.4:  - Fixing (persistent) inconsistencies between vignette output within
 			the package and the output in the landing page.
-
 1.3.3:  - Replaced kable tables with pure markdown syntax.
         - Placed external figure importing within chunks.
- 
 1.3.2:  - Version-bump 
 1.3.1:  - Minor compatibility update (igraph).
 
 1.1.3:  - Minor compatibility update.
-
 1.1.2:  - All visualization functions now return visualized data.
         - Added support for organism Danio rerio (zebrafish).
-
 1.1.1:  - Update in User Guide/User Input
-
 1.1.0:  - Initial version

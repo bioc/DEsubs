@@ -2,7 +2,7 @@
                                 pathways='all')
 {
     # If a filename is given, read a text file from the 'User' directory.
-    if ( class(mRNAexpr) == 'character' )
+    if ( is(mRNAexpr, 'character') )
     {
         dir <- paste0(cache[['baseDir']], '//User') 
         mRNAexpr <- readLines(paste(dir, mRNAexpr, sep='//'))
@@ -43,9 +43,9 @@
     edgeList[idx] <- lapply(edgeList[idx], as.character)
 
     pathIds <- as.numeric(edgeList[, 4])
-    if ( pathways == 'Metabolic')
+    if ( 'Metabolic' %in% pathways )
         { edgeList <- edgeList[which(pathIds < 2000), ] }
-    if ( pathways == 'Non-Metabolic')
+    if ( 'Non-Metabolic' %in% pathways )
         { edgeList <- edgeList[which(pathIds >= 2000), ] }
 
     # Filter edgelist with gene within the RNA-seq data
@@ -91,7 +91,7 @@
     if ( !is.null(rankedList) )
     {
         # A filepath is given as input
-        if ( class(rankedList) != 'numeric')
+        if ( !is(rankedList, 'numeric') ) 
         {
             file <- rankedList
             rankedList.data <- read.table(file, dec = '.', sep=' ')
@@ -101,7 +101,7 @@
         # A ranked list of differentially expressed genes is given as input,
         # in the form of a named vector, storing the Q-values and the gene
         # names (the vector's names).
-        if ( class(rankedList) == 'numeric')
+        if ( is(rankedList, 'numeric') ) 
         { 
             genes <- rankedList 
         }

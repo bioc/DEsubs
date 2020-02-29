@@ -50,7 +50,8 @@
     if (is.null(limat))     { return(limat) }
 
     # If input is already a matrix, return original data.
-    if (class(limat) == 'matrix') { return(limat) }
+    if ( is(limat, 'matrix') )  
+        { return(limat) }
 
     # Find what type of data the list holds
     type <- NULL

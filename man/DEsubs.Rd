@@ -16,8 +16,8 @@ or a filename of a text file stored in the 'User' directory.}
     'ensembl_transcript_id', 'ensembl_peptide_id', 'hgnc_id', 'hgnc_symbol',
     'hgnc_transcript_name', 'refseq_mrna', 'refseq_peptide')}
 \item{pathways}{Pathway type ('All', 'Non-Metabolic', 'Metabolic')}
-\item{DEtool}{DEG analysis tool selection for NodeRule ('edgeR', 'DESeq', 
-    'EBSeq', 'NBPSeq', 'voom+limma', 'vst+limma', 'TSPM')}
+\item{DEtool}{DEG analysis tool selection for NodeRule ('edgeR', 'DESeq2',
+    'EBSeq', 'NBPSeq', 'voom+limma', 'vst2+limma', 'TSPM')}
 \item{DEpar}{DE analysis tools Q-value threshold of NodeRule 
     (default: DEGpar = 0.05)}
 \item{CORtool}{ Correlation measure selection for EdgeRule 

@@ -199,9 +199,9 @@ Table: Edge Rule options
 Supported Labels                                    R command
 --------------                                      ----------------
 [@robinson2010edger]                                'edgeR'
-[@anders2010differential]                           'DESeq'
+[@anders2010differential]                           'DESeq2'
 [@leng2013ebseq]                                    'EBSeq'
-[@smyth2004linear]                                  'vst+limma'
+[@smyth2004linear]                                  'vst2+limma'
 [@anders2010differential]; [@smyth2004linear]       'voom+limma'
 [@di2011nbp]                                        'NBPSeq'
 [@auer2011two]                                      'TSPM'

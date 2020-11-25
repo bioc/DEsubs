@@ -60,8 +60,8 @@ DEsubs <- function( org, mRNAexpr, mRNAnomenclature, pathways,
     if ( missing(classes) )      { message('Please supply the classes.') }
     if ( missing(DEGchoice) )    { message('Please supply a type.') }
 
-    supportedMethods <- c('edgeR', 'DESeq', 'EBSeq', 'NBPSeq', 
-                            'voom+limma', 'vst+limma', 'TSPM')
+    supportedMethods <- c(
+        'edgeR', 'DESeq2', 'EBSeq', 'NBPSeq', 'voom+limma', 'vst2+limma', 'TSPM')
 
     if ( DEGchoice == 'edgeR' )
     {
@@ -77,24 +77,6 @@ DEsubs <- function( org, mRNAexpr, mRNAnomenclature, pathways,
         adjpvalues        <- edgeR.adjpvalues
         names(adjpvalues) <- genes
 
-        return(adjpvalues)
-    }
-    if ( DEGchoice == 'DESeq' )
-    {
-        # run DESeq
-        DESeq.cds <- DESeq::newCountDataSet(countData=count.matrix, 
-                                    conditions=factor(classes))
-        DESeq.cds <- DESeq::estimateSizeFactors(DESeq.cds)
-        DESeq.cds <- DESeq::estimateDispersions(DESeq.cds, 
-                            sharingMode="maximum", method="pooled", 
-                            fitType="local")
-        DESeq.test        <- nbinomTest(DESeq.cds, "1", "2")
-        DESeq.pvalues     <- DESeq.test[['pval']]
-        genes             <- DESeq.test[['id']]
-        DESeq.adjpvalues  <- p.adjust(DESeq.pvalues, method="BH")
-        adjpvalues        <- DESeq.adjpvalues
-        names(adjpvalues) <- genes
-        
         return(adjpvalues)
     }
     if ( DEGchoice == 'voom+limma' )
@@ -116,34 +98,6 @@ DEsubs <- function( org, mRNAexpr, mRNAnomenclature, pathways,
 
         return(adjpvalues)
     }
-    # if ( DEGchoice == 'samr' )
-    # {
-    #     # samr
-    #     sink( tempfile() ) 
-    #     SAMseq.test <- suppressMessages(SAMseq(count.matrix, classes, 
-    #                         resp.type="Two class unpaired", 
-    #                         geneid = rownames(count.matrix), 
-    #                         genenames = rownames(count.matrix),
-    #                         nperms = 100, nresamp = 20, fdr.output = 1))
-    #     SAMseq.result.table <- rbind( 
-    #                         SAMseq.test[['siggenes.table']][['genes.up']], 
-    #                         SAMseq.test[['siggenes.table']][['genes.lo']])
-    #     SAMseq.score        <- rep(0,  nrow(count.matrix))
-    #     idx                 <- match(SAMseq.result.table[,1], 
-    #                                 rownames(count.matrix))
-    #     SAMseq.score[idx]   <- as.numeric(SAMseq.result.table[,3])
-    #     SAMseq.FDR          <- rep(1, nrow(count.matrix))
-    #     idx                 <- match(SAMseq.result.table[,1], 
-    #                                 rownames(count.matrix)) 
-    #     SAMseq.FDR[idx]     <- as.numeric(SAMseq.result.table[,5])/100
-    #     adjpvalues          <- SAMseq.FDR
-    #     genes               <- SAMseq.result.table[, 'Gene ID']
-    #     names(adjpvalues)   <- genes
-
-    #     sink()
-
-    #     return(adjpvalues)
-    # }
     if ( DEGchoice == 'EBSeq' )
     {
         # run EBSeq
@@ -163,26 +117,6 @@ DEsubs <- function( org, mRNAexpr, mRNAnomenclature, pathways,
             EBSeq.FDR[i] <- mean(EBSeq.lFDR[idx])
         }
         adjpvalues <- EBSeq.FDR
-
-        return(adjpvalues)
-    }
-    if ( DEGchoice == 'vst+limma' )
-    {
-        # vst+limma
-        DESeq.cds  <- newCountDataSet(  countData=count.matrix, 
-                                        conditions=factor(classes))
-        DESeq.cds  <- estimateSizeFactors(DESeq.cds)
-        DESeq.cds  <- estimateDispersions(  DESeq.cds,  
-                                            method="blind", fitType="local")
-        DESeq.vst  <- getVarianceStabilizedData(DESeq.cds)
-        DESeq.vst.fitlimma   <- lmFit(  DESeq.vst,
-                                        design=model.matrix(~factor(classes)))
-        DESeq.vst.fitbayes   <- eBayes(DESeq.vst.fitlimma)
-        DESeq.vst.pvalues    <- DESeq.vst.fitbayes[['p.value']][, 2]
-        genes                <- rownames(DESeq.vst.fitbayes[['p.value']])
-        DESeq.vst.adjpvalues <- p.adjust(DESeq.vst.pvalues, method="BH")
-        adjpvalues           <- DESeq.vst.adjpvalues 
-        names(adjpvalues)    <- genes
 
         return(adjpvalues)
     }
@@ -262,6 +196,7 @@ DEsubs <- function( org, mRNAexpr, mRNAnomenclature, pathways,
 
         return(adjpvalues)
     }
+
     if  ( !is.null(DEGchoice) )
     {
         unsupportedOptions <- DEGchoice[!DEGchoice %in% supportedMethods]

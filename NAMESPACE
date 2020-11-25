@@ -1,18 +1,11 @@
 import( 'locfit' )
-importFrom( 'DESeq',
-                'newCountDataSet',
-                'estimateSizeFactors',
-                'estimateDispersions',
-                'nbinomTest',
-                'getVarianceStabilizedData')
+
 importFrom( 'DESeq2',
                 'DESeqDataSetFromMatrix',
                 'estimateSizeFactors',
                 'estimateDispersions',
                 'nbinomWaldTest',
                 'results')
-
-
 importFrom( 'limma', 
                 'voom', 
                 'lmFit', 
@@ -136,7 +129,8 @@ importFrom(  'methods',
                 'setGeneric',
                 'setMethod',
                 'signature',
-                'new')
+                'new', 
+                'is')
 export( 'DEsubs', 
                 'geneVisualization', 
                 'organismVisualization',
